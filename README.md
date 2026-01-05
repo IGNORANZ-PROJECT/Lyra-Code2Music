@@ -98,24 +98,25 @@ async def melody(seed=2):
 #include <stdio.h>
 
 int main(void) {
-    int chord[4] = {0, 2, 5, 7};
+    int motif[8] = {0, 2, 4, 7, 9, 7, 4, 2};
+    int bass[4] = {0, -5, -7, -12};
     int total = 0;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 16; i++) {
+        int step = motif[i % 8] + bass[(i / 4) % 4];
         if (i % 2 == 0) {
             sleep(1);
         } else {
             sleep(2);
         }
-        total += chord[i % 4];
-        if (i == 3) continue;
+        total += step;
     }
-    switch (total % 3) {
-        case 0: break;
-        case 1: break;
+    switch (total % 4) {
+        case 0: total += 2; break;
+        case 1: total -= 1; break;
         default: break;
     }
-    for (int j = 0; j < 3; j++) {
-        total += j;
+    for (int j = 0; j < 6; j++) {
+        total += (j % 2 == 0) ? 1 : -1;
     }
     return 0;
 }
@@ -127,16 +128,17 @@ int main(void) {
 
 int main() {
     int total = 0;
-    int motif[] = {1, 2, 3, 2, 1};
-    for (int i = 0; i < 6; i++) {
-        if (i == 2) break;
-        total += motif[i % 5];
+    int motif[] = {0, 3, 5, 7, 10, 7, 5, 3};
+    int bass[] = {0, -5, -7, -12};
+    for (int i = 0; i < 12; i++) {
+        if (i == 6) continue;
+        total += motif[i % 8] + bass[(i / 3) % 4];
     }
-    while (total < 12) {
+    while (total < 8) {
         total++;
     }
-    for (int k = 0; k < 4; k++) {
-        if (k % 2 == 0) total += k;
+    for (int k = 0; k < 8; k++) {
+        if (k % 3 == 0) total += 2;
     }
     return total;
 }
@@ -147,21 +149,22 @@ int main() {
 class Main {
     public static void main(String[] args) {
         int sum = 0;
-        int[] scale = {0, 2, 4, 7, 9};
-        for (int i = 0; i < 8; i++) {
+        int[] scale = {0, 2, 4, 7, 9, 7, 4, 2};
+        int[] bass = {0, -5, -7, -12};
+        for (int i = 0; i < 12; i++) {
             if (i % 2 == 0) {
                 sleep(1);
             } else {
                 sleep(2);
             }
-            sum += scale[i % scale.length];
+            sum += scale[i % scale.length] + bass[(i / 3) % bass.length];
         }
-        switch (sum % 4) {
-            case 3: break;
+        switch (sum % 5) {
+            case 2: sum += 2; break;
             default: break;
         }
-        for (int j = 0; j < 3; j++) {
-            sum += j;
+        for (int j = 0; j < 6; j++) {
+            sum += (j % 2 == 0) ? 1 : -1;
         }
     }
 }
@@ -173,13 +176,15 @@ using System.Threading.Tasks;
 
 class Runner {
     public async Task RunAsync() {
-        int[] motif = { 1, 2, 4, 2, 1, 3 };
-        foreach (var i in motif) {
-            if (i == 2) continue;
+        int[] motif = { 0, 2, 4, 7, 9, 7, 4, 2 };
+        int[] bass = { 0, -5, -7, -12 };
+        for (int i = 0; i < 12; i++) {
+            int step = motif[i % motif.Length] + bass[(i / 3) % bass.Length];
+            if (step % 2 == 0) await Task.Delay(80);
             await Task.Delay(100);
         }
-        for (int j = 0; j < 4; j++) {
-            if (j % 2 == 0) await Task.Delay(80);
+        for (int j = 0; j < 6; j++) {
+            if (j % 3 == 0) await Task.Delay(60);
         }
     }
 }
@@ -188,25 +193,24 @@ class Runner {
 ### JavaScript
 ```javascript
 function arpeggio(seed) {
-  const base = [0, 4, 7, 11];
-  return base.map((n, i) => n + ((i + seed) % 3));
+  const base = [0, 3, 5, 7, 10, 7, 5, 3];
+  return base.map((n, i) => n + ((i + seed) % 4));
 }
 
 async function run() {
   const notes = arpeggio(2);
-  for (let i = 0; i < 8; i++) {
+  const bass = [0, -5, -7, -12];
+  for (let i = 0; i < 12; i++) {
     if (i % 2 === 0) {
       await sleep(1);
     } else {
       await sleep(2);
     }
   }
-  for (const n of notes) {
-    if (n % 2 === 0) {
-      setTimeout(() => {}, 120);
-    } else {
-      setTimeout(() => {}, 80);
-    }
+  for (let i = 0; i < notes.length; i++) {
+    const n = notes[i] + bass[Math.floor(i / 2) % bass.length];
+    if (n % 3 === 0) setTimeout(() => {}, 140);
+    else setTimeout(() => {}, 90);
   }
 }
 ```
