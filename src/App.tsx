@@ -662,7 +662,7 @@ export default function App() {
       <div className="app">
       <header className="hero">
         <div>
-          <div className="eyebrow">Code-to-Chiptune v1.15.3</div>
+          <div className="eyebrow">Code-to-Chiptune v1.16.0</div>
           <h1>Lyra-Code2Music</h1>
           <p className="disclaimer">※使用は自己責任でお願いします。</p>
           <p className="lead">
@@ -1096,6 +1096,7 @@ export default function App() {
             <li>フローモードはトークン順に歩幅を進めて再生</li>
             <li>フローモードはループや待機で繰り返し/間を追加</li>
             <li>分岐/終了系キーワードは区切りのアクセントに変換</li>
+            <li>数値はスケールに沿って音程化、式は結果を追加音に</li>
             <li>言語固有トークンでフレーズ追加（Python def/class、JS async/await、C系 #include/#define）</li>
           </ul>
           <a className="rules-link" href="https://github.com/IGNORANZ-PROJECT/Lyra-Code2Music" target="_blank" rel="noreferrer">

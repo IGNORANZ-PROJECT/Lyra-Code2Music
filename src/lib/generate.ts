@@ -132,6 +132,147 @@ function restCountForToken(token: Token, density: number) {
   return density > 0.6 ? 1 : (density > 0.3 ? 2 : 3);
 }
 
+function numberToDegree(n: number) {
+  const safe = Number.isFinite(n) ? Math.round(Math.abs(n)) : 0;
+  return (safe % 20) - 5;
+}
+
+type ExprResult = {
+  value: number;
+  endIndex: number;
+  usedOperators: boolean;
+};
+
+function parseNumericExpression(tokens: TokenWithLang[], startIndex: number): ExprResult | null {
+  const maxTokens = 24;
+  const output: (number | string)[] = [];
+  const ops: string[] = [];
+  let usedOperators = false;
+  let expectValue = true;
+  const startLine = tokens[startIndex]?.token.line;
+  if (!startLine) return null;
+
+  const precedence = (op: string) => {
+    if (op === "u-") return 3;
+    if (op === "*" || op === "/" || op === "%") return 2;
+    if (op === "+" || op === "-") return 1;
+    return 0;
+  };
+
+  const isLeftAssoc = (op: string) => op !== "u-";
+  const flushOp = (op: string) => {
+    output.push(op);
+  };
+
+  let count = 0;
+  let i = startIndex;
+  for (; i < tokens.length && count < maxTokens; i += 1) {
+    const tok = tokens[i].token;
+    if (tok.line !== startLine) break;
+    if (tok.type === "whitespace" || tok.type === "comment" || tok.type === "string") {
+      continue;
+    }
+    const text = tok.text;
+    if (tok.type === "number") {
+      output.push(parseFloat(text));
+      expectValue = false;
+      count += 1;
+      continue;
+    }
+    if (text === "(") {
+      ops.push(text);
+      expectValue = true;
+      count += 1;
+      continue;
+    }
+    if (text === ")") {
+      while (ops.length > 0 && ops[ops.length - 1] !== "(") {
+        flushOp(ops.pop() as string);
+      }
+      if (ops[ops.length - 1] === "(") {
+        ops.pop();
+      }
+      expectValue = false;
+      count += 1;
+      continue;
+    }
+    if (tok.type === "operator") {
+      let op = text;
+      if (!["+","-","*","/","%"].includes(op)) {
+        break;
+      }
+      if (op === "-" && expectValue) {
+        op = "u-";
+      } else {
+        usedOperators = true;
+      }
+      while (ops.length > 0) {
+        const top = ops[ops.length - 1];
+        if (top === "(") break;
+        if (
+          (isLeftAssoc(op) && precedence(op) <= precedence(top)) ||
+          (!isLeftAssoc(op) && precedence(op) < precedence(top))
+        ) {
+          flushOp(ops.pop() as string);
+        } else {
+          break;
+        }
+      }
+      ops.push(op);
+      expectValue = true;
+      count += 1;
+      continue;
+    }
+    break;
+  }
+
+  while (ops.length > 0) {
+    const op = ops.pop() as string;
+    if (op !== "(") flushOp(op);
+  }
+
+  if (output.length === 0) return null;
+  const stack: number[] = [];
+  for (const item of output) {
+    if (typeof item === "number") {
+      stack.push(item);
+      continue;
+    }
+    if (item === "u-") {
+      const v = stack.pop();
+      if (v == null) return null;
+      stack.push(-v);
+      continue;
+    }
+    const b = stack.pop();
+    const a = stack.pop();
+    if (a == null || b == null) return null;
+    switch (item) {
+      case "+":
+        stack.push(a + b);
+        break;
+      case "-":
+        stack.push(a - b);
+        break;
+      case "*":
+        stack.push(a * b);
+        break;
+      case "/":
+        stack.push(b === 0 ? 0 : a / b);
+        break;
+      case "%":
+        stack.push(b === 0 ? 0 : a % b);
+        break;
+      default:
+        return null;
+    }
+  }
+  if (stack.length !== 1) return null;
+  const value = stack[0];
+  if (!Number.isFinite(value)) return null;
+  return { value, endIndex: Math.max(startIndex, i - 1), usedOperators };
+}
+
 export function generateSongEvents(
   tokens: TokenWithLang[],
   params: SongParams,
@@ -503,16 +644,29 @@ export function generateSongEvents(
             continue;
           }
           const n = parseFloat(tok.text);
-          const degree = (Math.floor(n) % 10) - 6;
-          const midi = pickFromScale(params.keyRootMidi - 24, degree, 0);
+          const degree = numberToDegree(n);
+          const midi = pickFromScale(params.keyRootMidi + 12, degree, 0);
           events.push({
-            track: "bass",
+            track: "melody",
             timeBeats: tq,
             durationBeats: Math.max(step * 2, 0.5),
             midi,
-            velocity: 0.6 * bassLevel,
+            velocity: 0.7 * melodyLevel,
             tokenIndex: idx,
           });
+          const expr = parseNumericExpression(tokens, idx);
+          if (expr && expr.usedOperators) {
+            const exprDegree = numberToDegree(expr.value);
+            const exprMidi = pickFromScale(params.keyRootMidi - 12, exprDegree, 0);
+            events.push({
+              track: "bass",
+              timeBeats: tq + step * 0.5,
+              durationBeats: Math.max(step * 2, 0.5),
+              midi: exprMidi,
+              velocity: 0.65 * bassLevel,
+              tokenIndex: idx,
+            });
+          }
         } else if (tok.type === "keyword") {
           const k = tok.text;
 
