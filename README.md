@@ -18,6 +18,9 @@
 - C# (.cs)
 - JavaScript (.js)
 
+## Contributing
+Pull Request大歓迎です。
+
 ## 必要環境
 - Node.js 18+ 推奨
 - Firebase CLI（デプロイする場合）: `npm i -g firebase-tools`
