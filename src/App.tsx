@@ -662,7 +662,7 @@ export default function App() {
       <div className="app">
       <header className="hero">
         <div>
-          <div className="eyebrow">Code-to-Chiptune v1.17.0</div>
+          <div className="eyebrow">Code-to-Chiptune v1.17.1</div>
           <h1>Lyra-Code2Music</h1>
           <p className="disclaimer">※使用は自己責任でお願いします。動作しない場合はブラウザを変えてみてください。</p>
           <p className="lead">
@@ -794,9 +794,19 @@ export default function App() {
           <button className="primary" onClick={onPlay} disabled={isPlaying}>生成して再生</button>
           <button onClick={onStop} disabled={!isPlaying}>停止</button>
           <button onClick={onDownloadMidi} disabled={!song}>MIDIダウンロード</button>
-          <button onClick={onDownloadMp3} disabled={!song || isExportingMp3}>
-            {isExportingMp3 ? "MP3書き出し中..." : "MP3ダウンロード"}
-          </button>
+          <div className="download-group">
+            <button onClick={onDownloadMp3} disabled={!song || isExportingMp3}>
+              {isExportingMp3 ? "MP3書き出し中..." : "MP3ダウンロード"}
+            </button>
+            <a
+              className="share-x"
+              href="https://x.com/intent/post?text=%E6%98%AF%E9%9D%9E%E3%80%81%E5%8B%95%E7%94%BB%E3%82%84%E9%9F%B3%E6%BA%90%E3%81%AA%E3%81%A9%E3%82%92%E6%B7%BB%E4%BB%98%E3%81%97%E3%81%A6%E7%9A%86%E3%81%95%E3%82%93%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E9%9F%B3%E8%89%B2%E3%82%92%E8%81%9E%E3%81%8B%E3%81%9B%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E6%B5%81%E5%87%BA%E7%AD%89%E3%81%AB%E3%81%AF%E3%81%8A%E6%B0%97%E3%82%92%E3%81%A4%E3%81%91%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82)%0A%20%23LyraCode2Music%20%23%E7%BE%8E%E3%81%97%E3%81%84%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E7%BE%8E%E3%81%97%E3%81%84%E9%9F%B3%E8%89%B2%E3%82%92%E5%A5%8F%E3%81%A7%E3%82%8B%E3%81%AF%E3%81%9A%20https%3A%2F%2Flyra-code2music.web.app%2F"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Xでシェア
+            </a>
+          </div>
           <button onClick={onAddProgram} disabled={isPlaying}>空のエディタ追加</button>
         </div>
       </section>

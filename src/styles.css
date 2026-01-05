@@ -154,13 +154,22 @@ h1 {
   margin-top: 16px;
 }
 
-.actions button {
+.actions button,
+.actions a {
   padding: 10px 16px;
   border-radius: 999px;
   border: 1px solid rgba(231, 233, 239, 0.2);
   background: rgba(20, 24, 34, 0.85);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.actions a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .actions button.primary {
@@ -170,13 +179,31 @@ h1 {
   font-weight: 600;
 }
 
+.download-group {
+  display: flex;
+  gap: 10px;
+}
+
+.download-group .share-x {
+  font-weight: 600;
+  background: linear-gradient(135deg, #63b3ff 0%, #1d7ef0 100%);
+  border: none;
+  color: #0b1522;
+  box-shadow: 0 10px 24px rgba(29, 126, 240, 0.35);
+}
+
+.download-group .share-x:hover {
+  box-shadow: 0 12px 26px rgba(29, 126, 240, 0.5);
+}
+
 .actions button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-.actions button:not(:disabled):hover {
+.actions button:not(:disabled):hover,
+.actions a:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 18px rgba(7, 9, 14, 0.5);
 }
@@ -536,8 +563,19 @@ h1 {
     gap: 8px;
   }
 
-  .actions button {
+  .actions > button,
+  .actions > a {
     width: 100%;
+  }
+
+  .download-group {
+    width: 100%;
+  }
+
+  .download-group button,
+  .download-group a {
+    width: auto;
+    flex: 1;
   }
 
   .editor-header {
