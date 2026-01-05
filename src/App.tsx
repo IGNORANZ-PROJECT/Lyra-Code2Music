@@ -658,11 +658,11 @@ export default function App() {
       <div className="app">
       <header className="hero">
         <div>
-          <div className="eyebrow">Code-to-Chiptune v1.15.1</div>
+          <div className="eyebrow">Code-to-Chiptune v1.15.2</div>
           <h1>Lyra-Code2Music</h1>
           <p className="disclaimer">※使用は自己責任でお願いします。</p>
           <p className="lead">
-            コードはサーバーに送られません。解析・作曲・再生・MIDI生成はすべてブラウザ内で行います。
+            コードがサーバーに送られることはありません。美しいプログラムは美しい音色を奏でる(願望)
           </p>
         </div>
         <div className="hero-card">
