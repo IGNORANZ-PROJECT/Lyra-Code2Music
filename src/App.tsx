@@ -662,9 +662,9 @@ export default function App() {
       <div className="app">
       <header className="hero">
         <div>
-          <div className="eyebrow">Code-to-Chiptune v1.16.1</div>
+          <div className="eyebrow">Code-to-Chiptune v1.17.0</div>
           <h1>Lyra-Code2Music</h1>
-          <p className="disclaimer">※使用は自己責任でお願いします。</p>
+          <p className="disclaimer">※使用は自己責任でお願いします。動作しない場合はブラウザを変えてみてください。</p>
           <p className="lead">
             コードがサーバーに送られることはありません。美しいプログラムは美しい音色を奏でる(願望)
           </p>
@@ -977,7 +977,7 @@ export default function App() {
                 />
               </div>
             </div>
-            <div className="editor-surface" style={{ height: EDITOR_HEIGHT_PX }}>
+            <div className="editor-surface" style={{ height: "var(--editor-height)" }}>
               <textarea
                 ref={(node) => {
                   textareaRefs.current[program.id] = node;

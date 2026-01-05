@@ -1,9 +1,14 @@
 # Lyra-Code2Music
 
-ブラウザ内でコードを解析し、チップチューンとして再生＆MIDI出力するデモです。  
+ブラウザ内でコードを解析し、チップチューンとして再生＆MIDI出力するデモです。
 コードはサーバーに送信されません（Hostingのみ）。
 
 公開URL: https://lyra-code2music.web.app
+
+## ブラウザ動作状況
+- 動作確認済み: Chrome、Safari
+- 多分動作する: Chromium系、Brave、Opera、Vivaldi、Firefox
+- 動作しない: Internet Explorer、旧Edge（EdgeHTML）
 
 ## 特徴
 - ローカル解析のみで、コードの送信なし

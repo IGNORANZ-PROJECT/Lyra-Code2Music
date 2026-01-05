@@ -10,6 +10,7 @@
   --accent-strong: #ff8a5a;
   --line: rgba(231, 233, 239, 0.12);
   --shadow: 0 18px 40px rgba(5, 7, 12, 0.55);
+  --editor-height: 360px;
 }
 
 * {
@@ -476,5 +477,79 @@ h1 {
   .editor-grid {
     grid-auto-flow: row;
     grid-auto-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --editor-height: 280px;
+  }
+
+  .app {
+    padding: 20px 16px 72px;
+  }
+
+  .hero {
+    gap: 16px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+  }
+
+  .disclaimer {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .hero-card {
+    padding: 14px;
+  }
+
+  .hero-list {
+    font-size: 14px;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .control-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .control {
+    font-size: 14px;
+  }
+
+  .control input,
+  .control select {
+    font-size: 15px;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+
+  .editor-header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .editor-settings {
+    font-size: 12px;
+  }
+
+  .tips-grid {
+    grid-template-columns: 1fr;
   }
 }
