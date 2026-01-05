@@ -662,7 +662,7 @@ export default function App() {
       <div className="app">
       <header className="hero">
         <div>
-          <div className="eyebrow">Code-to-Chiptune v1.16.0</div>
+          <div className="eyebrow">Code-to-Chiptune v1.16.1</div>
           <h1>Lyra-Code2Music</h1>
           <p className="disclaimer">※使用は自己責任でお願いします。</p>
           <p className="lead">
