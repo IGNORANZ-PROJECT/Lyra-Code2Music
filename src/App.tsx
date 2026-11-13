@@ -662,11 +662,11 @@ export default function App() {
       <div className="app">
       <header className="hero">
         <div>
-          <div className="eyebrow">Code-to-Chiptune v1.17.1</div>
-          <h1>Lyra-Code2Music</h1>
+          <div className="eyebrow">Lyra - Code2Music · IGNORANZ PROJECT</div>
+          <h1>コードを、聴こう。</h1>
           <p className="disclaimer">※使用は自己責任でお願いします。動作しない場合はブラウザを変えてみてください。</p>
           <p className="lead">
-            コードがサーバーに送られることはありません。美しいプログラムは美しい音色を奏でる(願望)
+            書いたコードが、音楽になる。プログラムから生まれる新しい音のかたち。コードがサーバーに送られることはありません。
           </p>
         </div>
         <div className="hero-card">
@@ -1114,6 +1114,11 @@ export default function App() {
           </a>
         </details>
       </section>
+
+      <footer className="site-footer">
+        <span>LYRA - CODE2MUSIC v1.17.1</span>
+        <a href="https://ignoranz-project.web.app/" target="_blank" rel="noreferrer">IGNORANZ PROJECT — 公式サイト</a>
+      </footer>
 
       <button className="dev-trigger" onClick={() => setShowDevNote((prev) => !prev)}>
         ©IGNORANZ PROJECT

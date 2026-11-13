@@ -1,15 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=JetBrains+Mono:wght@400;600&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap");
 
 :root {
   color-scheme: dark;
-  --bg: #0f1115;
-  --ink: #e7e9ef;
-  --muted: rgba(231, 233, 239, 0.68);
-  --card: #151922;
-  --accent: #ffb347;
-  --accent-strong: #ff8a5a;
-  --line: rgba(231, 233, 239, 0.12);
-  --shadow: 0 18px 40px rgba(5, 7, 12, 0.55);
+  --bg: #0c0c0c;
+  --ink: #f2f2f2;
+  --muted: rgba(242, 242, 242, 0.62);
+  --card: #111113;
+  --field: #0a0a0b;
+  --accent: #ff3b30;
+  --accent-hover: #d92c23;
+  --line: rgba(242, 242, 242, 0.14);
   --editor-height: 360px;
 }
 
@@ -19,12 +19,9 @@
 
 body {
   margin: 0;
-  font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
+  font-family: "Archivo", "Zen Kaku Gothic New", "Helvetica Neue", sans-serif;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 10% 20%, rgba(255, 179, 71, 0.16), transparent 45%),
-    radial-gradient(circle at 85% 10%, rgba(88, 153, 255, 0.22), transparent 42%),
-    linear-gradient(150deg, #0c0e14 0%, #0f1115 55%, #141925 100%);
+  background: var(--bg);
 }
 
 button,
@@ -52,9 +49,8 @@ textarea {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.28;
+  opacity: 0.12;
   z-index: 0;
-  mix-blend-mode: screen;
 }
 
 .hero {
@@ -65,6 +61,7 @@ textarea {
 }
 
 .eyebrow {
+  font-family: "JetBrains Mono", monospace;
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.22em;
@@ -72,36 +69,42 @@ textarea {
 }
 
 h1 {
-  margin: 8px 0 4px;
+  margin: 10px 0 6px;
   font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
 }
 
 .disclaimer {
   margin: 6px 0 10px;
-  color: #ff8e7a;
+  color: #ff8a80;
   font-size: 13px;
 }
 
 .lead {
   margin: 0;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .hero-card {
-  background: linear-gradient(135deg, #1d212d 0%, #171a24 100%);
-  border-radius: 16px;
+  background: var(--card);
+  border-radius: 4px;
   padding: 18px;
-  border: 1px solid rgba(255, 179, 71, 0.18);
-  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
 }
 
 .hero-label {
-  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: rgba(231, 233, 239, 0.6);
-  margin-top: 8px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.hero-label:first-child {
+  margin-top: 0;
 }
 
 .hero-list {
@@ -112,10 +115,9 @@ h1 {
 .panel {
   margin-top: 28px;
   background: var(--card);
-  border-radius: 18px;
+  border-radius: 4px;
   padding: 18px;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow);
 }
 
 .control-grid {
@@ -131,14 +133,26 @@ h1 {
   color: var(--muted);
 }
 
+.control > span {
+  font-family: "JetBrains Mono", "Zen Kaku Gothic New", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
 .control input,
 .control select {
   width: 100%;
   padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(231, 233, 239, 0.18);
-  background: rgba(7, 9, 14, 0.7);
+  border-radius: 2px;
+  border: 1px solid var(--line);
+  background: var(--field);
   color: var(--ink);
+}
+
+.control input:focus,
+.control select:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
 .control.file input {
@@ -157,11 +171,12 @@ h1 {
 .actions button,
 .actions a {
   padding: 10px 16px;
-  border-radius: 999px;
-  border: 1px solid rgba(231, 233, 239, 0.2);
-  background: rgba(20, 24, 34, 0.85);
+  border-radius: 2px;
+  border: 1px solid var(--line);
+  background: #161617;
+  color: var(--ink);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .actions a {
@@ -173,10 +188,15 @@ h1 {
 }
 
 .actions button.primary {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
-  border: none;
-  color: #221610;
-  font-weight: 600;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.actions button.primary:not(:disabled):hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .download-group {
@@ -186,42 +206,38 @@ h1 {
 
 .download-group .share-x {
   font-weight: 600;
-  background: linear-gradient(135deg, #63b3ff 0%, #1d7ef0 100%);
-  border: none;
-  color: #0b1522;
-  box-shadow: 0 10px 24px rgba(29, 126, 240, 0.35);
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
 }
 
 .download-group .share-x:hover {
-  box-shadow: 0 12px 26px rgba(29, 126, 240, 0.5);
+  border-color: var(--accent);
 }
 
 .actions button:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
 .actions button:not(:disabled):hover,
 .actions a:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(7, 9, 14, 0.5);
+  border-color: rgba(242, 242, 242, 0.45);
 }
 
 .error {
   margin-top: 16px;
-  color: #ff8e7a;
+  color: #ff8a80;
   font-weight: 600;
 }
 
 .editor-card {
   margin-top: 22px;
-  background: #121521;
-  color: #f3f1ff;
-  border-radius: 18px;
+  background: #101012;
+  color: var(--ink);
+  border-radius: 4px;
   padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
 }
 
 .editor-grid {
@@ -242,8 +258,9 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: "JetBrains Mono", monospace;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--muted);
   margin-bottom: 10px;
 }
 
@@ -255,10 +272,10 @@ h1 {
 }
 
 .editor-lang {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-  color: #f6f0ff;
+  border-radius: 2px;
+  border: 1px solid var(--line);
+  background: #161617;
+  color: var(--ink);
   padding: 4px 10px;
   font-size: 11px;
 }
@@ -272,7 +289,7 @@ h1 {
   flex-wrap: wrap;
   gap: 8px 12px;
   margin-bottom: 10px;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -284,19 +301,24 @@ h1 {
 
 .editor-setting input {
   width: 68px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-  color: #f6f0ff;
+  border-radius: 2px;
+  border: 1px solid var(--line);
+  background: var(--field);
+  color: var(--ink);
   padding: 4px 8px;
   font-size: 11px;
 }
 
+.editor-setting input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
 .editor-remove {
-  border: none;
-  background: rgba(255, 255, 255, 0.12);
-  color: #f6f0ff;
-  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #1c1c1e;
+  color: var(--ink);
+  border-radius: 2px;
   width: 24px;
   height: 24px;
   cursor: pointer;
@@ -304,14 +326,14 @@ h1 {
 }
 
 .editor-remove:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 59, 48, 0.25);
 }
 
 .editor-surface {
   position: relative;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 2px;
+  background: var(--field);
+  border: 1px solid var(--line);
   overflow: hidden;
 }
 
@@ -330,7 +352,7 @@ h1 {
 
 .editor-textarea {
   color: transparent;
-  caret-color: #f6f0ff;
+  caret-color: var(--ink);
   background: transparent;
   border: none;
   outline: none;
@@ -343,34 +365,32 @@ h1 {
 
 .editor-overlay {
   margin: 0;
-  color: #f6f0ff;
+  color: var(--ink);
   pointer-events: none;
   overflow: auto;
 }
 
 .mark {
-  background: rgba(255, 179, 71, 0.55);
-  color: #1a1210;
-  border-radius: 4px;
-  padding: 0 2px;
+  background: var(--accent);
+  color: #ffffff;
+  border-radius: 0;
+  padding: 0 1px;
 }
 
 .rules-card {
   margin-top: 18px;
   background: var(--card);
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 12px 16px;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow);
 }
 
 .tips-card {
   margin-top: 22px;
   background: var(--card);
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 12px 16px;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow);
 }
 
 .tips-card summary {
@@ -391,10 +411,10 @@ h1 {
 }
 
 .tip {
-  background: #1a1f2b;
-  border-radius: 14px;
+  background: #161617;
+  border-radius: 2px;
   padding: 12px 14px;
-  border: 1px solid rgba(231, 233, 239, 0.08);
+  border: 1px solid var(--line);
 }
 
 .tip-title {
@@ -411,11 +431,11 @@ h1 {
 .tips-footer {
   margin-top: 12px;
   font-size: 13px;
-  color: #ffd3b8;
-  background: #201a1a;
-  border-radius: 12px;
+  color: var(--muted);
+  background: #161617;
+  border-radius: 2px;
   padding: 10px 12px;
-  border: 1px solid rgba(255, 125, 83, 0.22);
+  border: 1px solid var(--line);
 }
 
 .rules-card summary {
@@ -433,24 +453,51 @@ h1 {
   display: inline-block;
   margin-top: 6px;
   font-weight: 600;
-  color: #8db6ff;
-  text-decoration: none;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .rules-link:hover {
-  text-decoration: underline;
+  color: var(--accent);
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 44px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.site-footer a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
 }
 
 .dev-trigger {
   position: fixed;
   left: 18px;
   bottom: 18px;
-  background: rgba(15, 17, 23, 0.92);
-  color: #f7f2ef;
-  border: none;
-  border-radius: 999px;
+  background: #111113;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 2px;
   padding: 8px 14px;
-  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
   cursor: pointer;
 }
 
@@ -459,12 +506,11 @@ h1 {
   left: 18px;
   bottom: 60px;
   width: min(300px, 80vw);
-  background: #141a25;
+  background: #111113;
   color: var(--ink);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 12px;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow);
 }
 
 .dev-title {
@@ -479,10 +525,10 @@ h1 {
 
 .dev-close {
   margin-top: 10px;
-  border: none;
-  background: #0d0f16;
-  color: #f1f3f9;
-  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #1c1c1e;
+  color: var(--ink);
+  border-radius: 2px;
   padding: 6px 10px;
   font-size: 12px;
   cursor: pointer;
